@@ -7,21 +7,34 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 
-
+@Entity
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
-	private List<Endereco> endereco = new ArrayList<>();
+	@OneToMany(mappedBy="cliente")
+	private List<Endereco> enderecos = new ArrayList<>();
 	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
 	public  Cliente() {
@@ -77,12 +90,12 @@ public class Cliente implements Serializable{
 		this.tipo = tipo.getCod();
 	}
 
-	public List<Endereco> getEndereco() {
-		return endereco;
+	public List<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
-	public void setEndereco(List<Endereco> endereco) {
-		this.endereco = endereco;
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public Set<String> getTelefones() {
