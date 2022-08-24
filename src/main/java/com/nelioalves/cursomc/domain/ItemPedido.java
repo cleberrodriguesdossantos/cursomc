@@ -20,7 +20,7 @@ public class ItemPedido implements Serializable{
 	private Double preco;
 	
 	public ItemPedido() {
-		
+		super();
 	}
 
 	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
